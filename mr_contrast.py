@@ -42,19 +42,19 @@ def i2k(im):
 def kspace_sampling(npe, order_strg):
 
     if order_strg == 'linear':
-        k_order = np.linspace(0, npe - 1, npe).astype(np.int)
+        k_order = np.linspace(0, npe - 1, npe).astype(int)
 
     elif order_strg == 'low_high':
-        k_order = np.zeros(npe, dtype=np.int)
+        k_order = np.zeros(npe, dtype=int)
         for ind in range(npe // 2):
-            k_order[2 * ind] = np.int(npe // 2 + ind)
-            k_order[2 * ind + 1] = np.int(npe // 2 - ind - 1)
+            k_order[2 * ind] = int(npe // 2 + ind)
+            k_order[2 * ind + 1] = int(npe // 2 - ind - 1)
 
     elif order_strg == 'high_low':
-        k_order = np.zeros(npe, dtype=np.int)
+        k_order = np.zeros(npe, dtype=int)
         for ind in range(npe // 2):
-            k_order[2 * ind] = np.int(ind)
-            k_order[2 * ind + 1] = np.int(npe - ind - 1)
+            k_order[2 * ind] = int(ind)
+            k_order[2 * ind + 1] = int(npe - ind - 1)
 
     else:
         raise NameError('order_strg {:} not recognised'.format(order_strg,))
@@ -68,22 +68,22 @@ def kspace_sampling_segm(npe, order_strg, nsegm):
 
     # Calculate number of k-space samples per segment
     npe_segm = npe // nsegm
-    k_order = np.zeros((npe_segm, nsegm), dtype=np.int)
+    k_order = np.zeros((npe_segm, nsegm), dtype=int)
     for knd in range(nsegm):
         if order_strg == 'linear':
-            k_order[:, knd] = np.linspace(0, npe_segm - 1, npe_segm).astype(np.int)
+            k_order[:, knd] = np.linspace(0, npe_segm - 1, npe_segm).astype(int)
 
         elif order_strg == 'low_high':
 
             for ind in range(npe_segm // 2):
-                k_order[2 * ind, knd] = np.int(npe_segm // 2 + ind)
-                k_order[2 * ind + 1, knd] = np.int(npe_segm // 2 - ind - 1)
+                k_order[2 * ind, knd] = int(npe_segm // 2 + ind)
+                k_order[2 * ind + 1, knd] = int(npe_segm // 2 - ind - 1)
 
         elif order_strg == 'high_low':
 
             for ind in range(npe_segm // 2):
-                k_order[2 * ind, knd] = np.int(ind)
-                k_order[2 * ind + 1, knd] = np.int(npe_segm - ind - 1)
+                k_order[2 * ind, knd] = int(ind)
+                k_order[2 * ind + 1, knd] = int(npe_segm - ind - 1)
 
         else:
             raise NameError('order_strg {:} not recognised'.format(order_strg,))
